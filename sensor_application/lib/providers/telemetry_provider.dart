@@ -13,11 +13,11 @@ final webSocketProvider = Provider<WebSocketChannel>((ref) {
   return channel;
 });
 
-final alertProvider = StreamProvider<Alert>((ref) {
+final alertStreamProvider = StreamProvider<Alert>((ref) {
   final channel = ref.watch(webSocketProvider);
 
-  return channel.stream.map((message) {
-    final json = jsonDecode(message as String) as Map<String, dynamic>;
-    return Alert.fromJson(json);
+  return channel.stream.map((dynamic data) {
+    final decoded = jsonDecode(data as String) as Map<String, dynamic>;
+    return Alert.fromJson(decoded);
   });
 });
