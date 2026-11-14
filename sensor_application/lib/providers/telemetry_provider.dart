@@ -21,3 +21,17 @@ final alertStreamProvider = StreamProvider<Alert>((ref) {
     return Alert.fromJson(decoded);
   });
 });
+
+final activeAlertsProvider = StateNotifierProvider<AlertNotifier, List<Alert>>((
+  ref,
+) {
+  return AlertNotifier();
+});
+
+class AlertNotifier extends StateNotifier<List<Alert>> {
+  AlertNotifier() : super([]);
+
+  void addAlert(Alert alert) {
+    state = [...state, alert];
+  }
+}
